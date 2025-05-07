@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شريط تنقل احترافي مع صورة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        
+        
+        
+                }
+
+        #welcomeScreen {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        #mainContent {
+            display: none;
+            text-align: center;
+        }
+
+        .navbar {
+            background: #222;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .username-display {
+            font-size: 18px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    
+
+        /* تصميم شريط التنقل */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #222;
+            padding: 15px 30px;
+        }
+
+        .navbar-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .navbar-menu {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+        }
+
+        .navbar-menu li {
+            display: inline;
+        }
+
+        .navbar-menu a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            position: relative;
+            padding: 10px;
+        }
+
+        .navbar-menu a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #007bff;
+            transition: transform 0.3s ease;
+            transform: scaleX(0);
+        }
+
+        .navbar-menu a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        
+        /* صورة خلفية */
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            background: url('https://source.unsplash.com/1600x900/?sports') center/cover no-repeat;
+            position: relative;
+        }
+
+        /* نص حديث بتنسيق عصري */
+        .modern-text {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            font-size: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* تصميم الصورة أسفل شريط التنقل */
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            background: url('https://source.unsplash.com/1600x900/?sports') center/cover no-repeat;
+        }
+        /* تصميم الزر الحديث */
+        .modern-button {
+            display: inline-block;
+            padding: 15px 25px;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .modern-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 6px 12px rgba(0,0,0,0.3);
+        }
+        /* صندوق ثلاثي الأبعاد */
+        .modern-box {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            transform: perspective(1000px) rotateX(10deg);
+            transition: transform 0.3s ease;
+        }
+
+        .modern-box:hover {
+            transform: perspective(1000px) rotateX(0deg);
+        }
+
+        /* تصميم الأزرار */
+        .button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .modern-button {
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .modern-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 6px 12px rgba(0,0,0,0.3);
+        }
+
+        /* تصميم مربع المعلومات */
+        .info-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            font-size: 20px;
+            background: #007bff;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+        }
+
+
+        /* تصميم التنقل للأجهزة الصغيرة */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .navbar-menu {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                background-color: #222;
+                width: 100%;
+                padding: 15px 0;
+            }
+
+            .navbar-menu.show {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-image {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+  
+  
+  
+    <div id="welcomeScreen">
+        <h2>مرحبًا بك! الرجاء إدخال اسمك للمتابعة:</h2>
+        <input type="text" id="username" placeholder="اكتب اسمك هنا">
+        <button onclick="enterSite()">دخول</button>
+    </div>
+
+    <div id="mainContent">
+        <div class="navbar">
+            <div>تربية رياضية</div>
+            <div class="username-display">مرحبًا كابتن، <span id="userDisplay"></span></div>
+        </div>
+
+        <h2>أهلاً بك داخل الموقع!</h2>
+        <!-- محتوى الموقع هنا -->
+    </div>
+
+    <script>
+        function enterSite() {
+            let name = document.getElementById("username").value.trim();
+            if (name !== "") {
+                localStorage.setItem("userName", name);
+                showMainContent(name);
+            } else {
+                alert("يرجى إدخال اسمك للمتابعة!");
+            }
+        }
+
+        function showMainContent(name) {
+            document.getElementById("welcomeScreen").style.display = "none";
+            document.getElementById("mainContent").style.display = "block";
+            document.getElementById("userDisplay").innerText = name;
+        }
+
+        // عند تحميل الصفحة
+        window.onload = function () {
+            const savedName = localStorage.getItem("userName");
+            if (savedName) {
+                showMainContent(savedName);
+            }
+        }
+    </script>
+
+  
+  
+  
+  
+    <nav class="navbar">
+        <div class="navbar-logo">تربية رياضية</div>
+        <ul class="navbar-menu">
+            <li><a href="#about">عن الكلية</a></li>
+            <li><a href="#programs">البرامج الدراسية</a></li>
+            <li><a href="#contact">اتصل بنا</a></li>
+        </ul>
+        <div class="menu-toggle">☰</div>
+    </nav>
+
+    <!-- صورة أسفل شريط التنقل -->
+    <div class="hero-image"><img src="1746599223252.jpg" alt="صورة كلية التربية الرياضية" width="100%"></div>
+    
+    <!-- نص حديث بشكل عصري -->
+<div class="modern-text">
+    التربية الرياضية هي بوابتك لحياة صحية ونشيطة. من خلالها بنبني أجسام قوية، عقول واعية، ونغرس قيم الانضباط، التحدي، والعمل الجماعي.
+     <br>
+      <div class="modern-box">
+    <h2>معلومات عن كلية التربية الرياضية</h2>
+
+    <div class="button-container">
+        <button class="modern-button" onclick="showSection('infoBox1')">كيفية التقديم والأوراق المطلوبة</button>
+        <button class="modern-button" onclick="showSection('infoBox2')">الاختبارات الخاصة بالكلية</button>
+        <button class="modern-button" onclick="showSection('infoBox3')">مصاريف الكلية</button>
+        <button class="modern-button" onclick="showSection('infoBox4')">المقررات الدراسية</button>
+    </div>
+
+    <!-- الأوراق المطلوبة -->
+    <div class="info-box" id="infoBox1">
+        <h3>الأوراق المطلوبة للتقديم في كلية التربية الرياضية</h3>
+        <ul style="text-align: right;">
+            <li>استمارة النجاح في الثانوية العامة.</li>
+            <li>شهادة الميلاد الأصلية.</li>
+            <li>6 صور شخصية حديثة.</li>
+            <li>بطاقة الترشيح.</li>
+            <li>صورة بطاقة الرقم القومي.</li>
+            <li>نموذج (2 جند) و (6 جند) للذكور.</li>
+            <li>ملف التقديم من الكلية.</li>
+        </ul>
+        <button class="modern-button" onclick="hideAll()">رجوع</button>
+    </div>
+
+    <!-- الاختبارات -->
+    <div class="info-box" id="infoBox2">
+        <h3>الاختبارات الخاصة بالكلية:</h3>
+        <ul style="text-align: right;">
+            <li>الكشف الطبي العام.</li>
+            <li>اختبار القوام.</li>
+            <li>الاختبار الرياضي الأساسي.</li>
+            <li>اختبار المهارات الرياضية.</li>
+            <li>اختبار السباحة.</li>
+            <li>اختبار الثقة.</li>
+            <li>المقابلة الشخصية.</li>
+        </ul>
+        <button class="modern-button" onclick="hideAll()">رجوع</button>
+    </div>
+
+    <!-- المصاريف -->
+    <div class="info-box" id="infoBox3">
+        <h3>مصاريف كلية التربية الرياضية:</h3>
+        <ul style="text-align: right;">
+            <li>المصاريف الدراسية للعام الجامعي تقريبًا: 1000 إلى 1500 جنيه للطلاب المصريين (قد تختلف حسب الجامعة).</li>
+            <li>مصروفات الزي الرياضي والأنشطة: 400 - 600 جنيه تقريبًا.</li>
+            <li>مصروفات الكشف الطبي والاختبارات: تُدفع مرة واحدة عند التقديم.</li>
+        </ul>
+        <button class="modern-button" onclick="hideAll()">رجوع</button>
+    </div>
+
+    <!-- المقررات الدراسية -->
+    <div class="info-box" id="infoBox4">
+        <h3>المقررات الدراسية - الفرقة الأولى:</h3>
+        <h4>الترم الأول:</h4>
+        <ul style="text-align: right;">
+            <li>تشريح وظيفي.</li>
+            <li>مدخل إلى التربية الرياضية.</li>
+            <li>علم النفس الرياضي.</li>
+            <li>السباحة.</li>
+            <li>ألعاب قوى (جري - وثب - رمي).</li>
+            <li>جمباز.</li>
+        </ul>
+        <h4>الترم الثاني:</h4>
+        <ul style="text-align: right;">
+            <li>فسيولوجي رياضي.</li>
+            <li>مبادئ التدريب الرياضي.</li>
+            <li>كرة القدم.</li>
+            <li>كرة اليد.</li>
+            <li>الجمباز الإيقاعي (بنات) / المصارعة (بنين).</li>
+            <li>الإسعافات الأولية.</li>
+        </ul>
+        <button class="modern-button" onclick="hideAll()">رجوع</button>
+    </div>
+</div>
+
+<script>
+    function showSection(id) {
+        const boxes = document.querySelectorAll('.info-box');
+        boxes.forEach(box => box.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+        document.querySelector('.button-container').style.display = 'none';
+    }
+
+    function hideAll() {
+        const boxes = document.querySelectorAll('.info-box');
+        boxes.forEach(box => box.style.display = 'none');
+        document.querySelector('.button-container').style.display = 'flex';
+    }
+</script>
+
+
+
+<!-- قسم جدول الامتحانات -->
+<div class="modern-box">
+    <h2>جدول امتحانات الفرقة الأولى - الترم الثاني</h2>
+    <div style="text-align: center;">
+        <img src="FB_IMG_1746602924849.jpg" alt="جدول الامتحانات" style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 15px;">
+        <br>
+        <a href="FB_IMG_1746602924849.jpg" download>
+            <button class="modern-button">تحميل جدول الامتحانات</button>
+        </a>
+    </div>
+</div>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuToggle = document.querySelector(".menu-toggle");
+            const navbarMenu = document.querySelector(".navbar-menu");
+
+            menuToggle.addEventListener("click", function() {
+                navbarMenu.classList.toggle("show");
+            });
+        });
+    </script>
+</body>
+</html>
